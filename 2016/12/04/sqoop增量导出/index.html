@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      sqoop研究——增量导出 | Mr.Fan 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Mr.Fan">
+    
+    
+
+    <meta name="description" content="1、未分区表1、 默认情况；1sqoop  export  --connect jdbc:mysql://localhost:3306/bvs --username root --password anywhere --table dwd_test --export-dir hdfs://127.0.0.1:9000/user/hive/warehouse/dwd_test --input-fie">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sqoop研究——增量导出 | Mr.Fan">
+<meta property="og:url" content="http://tunomon.me/2016/12/04/sqoop增量导出/index.html">
+<meta property="og:site_name" content="Mr.Fan">
+<meta property="og:description" content="1、未分区表1、 默认情况；1sqoop  export  --connect jdbc:mysql://localhost:3306/bvs --username root --password anywhere --table dwd_test --export-dir hdfs://127.0.0.1:9000/user/hive/warehouse/dwd_test --input-fie">
+<meta property="og:updated_time" content="2016-12-04T09:24:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sqoop研究——增量导出 | Mr.Fan">
+<meta name="twitter:description" content="1、未分区表1、 默认情况；1sqoop  export  --connect jdbc:mysql://localhost:3306/bvs --username root --password anywhere --table dwd_test --export-dir hdfs://127.0.0.1:9000/user/hive/warehouse/dwd_test --input-fie">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Mr.Fan</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/Tunomon" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">sqoop研究——增量导出</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-12-04" class="post-meta__date date">2016-12-04</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/sqoop/">sqoop</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/sqoop/">sqoop</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="1、未分区表"><a href="#1、未分区表" class="headerlink" title="1、未分区表"></a>1、未分区表</h2><p>1、 默认情况；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sqoop  export  --connect jdbc:mysql://localhost:3306/bvs --username root --password anywhere --table dwd_test --export-dir hdfs://127.0.0.1:9000/user/hive/warehouse/dwd_test --input-fields-terminated-by &quot;\001&quot;  --input-lines-terminated-by &apos;\n&apos;  --input-escaped-by \\  --input-null-string &quot;&apos;\\\\N&apos;&quot;  --input-null-non-string &quot;&apos;\\\N&apos;&quot;  -m 1</div></pre></td></tr></table></figure></p>
+<p>以上为sqoop命令，当不指定–update-mode，默认时，默认为生成insert语句然后执行，若增量导，会失败。<br>该模式只能是在关系数据表里不存在要导入的记录时才能使用，比如要导入的hdfs中有一条id=1的记录，如果在mysql表里已经有一条记录id=2，那么导入会失败（mysql表已指定主键的情况下，若没有指定主键，则不会失败，记录会重复导入）。这种模式必须是插入一个空表。</p>
+<p>2、 指定–update-key时；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sqoop  export  --connect jdbc:mysql://localhost:3306/bvs --username root --password anywhere --table dwd_test --export-dir hdfs://127.0.0.1:9000/user/hive/warehouse/dwd_test --input-fields-terminated-by &quot;\001&quot;  --input-lines-terminated-by &apos;\n&apos;  --input-escaped-by \\  --input-null-string &quot;&apos;\\\\N&apos;&quot;  --input-null-non-string &quot;&apos;\\\N&apos;&quot;  -m 1 --update-key id</div></pre></td></tr></table></figure></p>
+<p>以上为sqoop命令，当加上参数–update-key id，以id为更新列，此时导，只会更新已经存在的。例如要导入的hdfs中有四条记录，id分别为1，2，3，4，mysql表中有id为1，2，3的三条记录。此时加上–update-key id参数，一一匹配，则mysql表中id为1，2，3的记录会被更新为hdfs中的新导入的记录。hdfs中第4条id为4的记录不会保存在mysql中。</p>
+<p>个人认为<strong>解决方案</strong>：经过测试，可以使用–update-mode allowinsert –update-key id 两个参数同时使用，效果为：若以–update-key指定的列匹配到存在，则更新；若匹配不到不存在，则插入（此时mysql必须指定主键，否则会产生数据全部重复导入的情况）。可以产生增量导出的效果。但是效率未经过大数据测试，效率不确定。</p>
+<h2 id="2、分区表"><a href="#2、分区表" class="headerlink" title="2、分区表"></a>2、分区表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sqoop  export  --connect jdbc:mysql://localhost:3306/bvs --username root --password anywhere --table dwd_partition --export-dir hdfs://127.0.0.1:9000/user/hive/warehouse/dwd_partition/pt=20161110 --input-fields-terminated-by &quot;\001&quot;  --input-lines-terminated-by &apos;\n&apos;  --input-escaped-by \\  --input-null-string &quot;&apos;\\\\N&apos;&quot;  --input-null-non-string &quot;&apos;\\\N&apos;&quot;  -m 1</div></pre></td></tr></table></figure>
+<p>以上为sqoop命令。若为分区表，则导出时不能只指定到该表所在的目录，必须要指定到分区所在的目录。否则会报错：<code>java.io.FileNotFoundException: Path is not a file: /user/hive/warehouse/dwd_partition/pt=20161110</code><br>两种模式情况与未分区表相同。</p>
+<p>个人认为增量导出<strong>解决方案</strong>：  </p>
+<ol>
+<li>若根据日期分期，则每天导出最新的分区中的数据。若根据其他信息分区，则每天递增分区信息进行导出。    </li>
+<li>每个分区同未分区表，使用–update-mode allowinsert –update-key id</li>
+</ol>
+<blockquote>
+<p>PS:1、导出时mysql中的表必须提前建立好，否则无法导出；<br>2、对于–update-mode参数设置的两种模式： updateonly 和 allowinsert，理解暂时有些混乱，需要再理一下。</p>
+<p>部分官方原文：</p>
+<blockquote>
+<p><code>--update-key &lt;col-name&gt;   Anchor column to use for updates. Use a comma separated list of columns if there are more than one column.</code><br><code>--update-mode &lt;mode&gt;  Specify how updates are performed when new rows are found with non-matching keys in database.Legal values for mode include updateonly (default) and allowinsert.</code></p>
+<p><code>By default, sqoop-export appends new rows to a table; each input record is transformed into an INSERT statement that adds a row to the target database table. If your table has constraints (e.g., a primary key column whose values must be unique) and already contains data, you must take care to avoid inserting records that violate these constraints. The export process will fail if an INSERT statement fails. This mode is primarily intended for exporting records to a new, empty table intended to receive these results.
+If you specify the --update-key argument, Sqoop will instead modify an existing dataset in the database. Each input record is treated as an UPDATEstatement that modifies an existing row. The row a statement modifies is determined by the column name(s) specified with --update-key</code></p>
+</blockquote>
+<p>参考文档： <a href="https://sqoop.apache.org/docs/1.4.6/SqoopUserGuide.html#_create_oracle_tables" target="_blank" rel="external">官方的使用者手册</a>  </p>
+</blockquote>
+
+  </section>
+
+  
+  
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
