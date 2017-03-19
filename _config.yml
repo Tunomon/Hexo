@@ -69,7 +69,9 @@ theme: huno
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repository: git@github.com:Tunomon/Tunomon.github.io
+  branch: master
 
 # Social
 social:
