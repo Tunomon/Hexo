@@ -1,10 +1,10 @@
 ---
-title: oozie_2
+title: oozie_2安装
 date: 2017-05-01 23:22:56
 tags:
 ---
 
-# Oozie-2_安装
+
 
 [TOC]
 

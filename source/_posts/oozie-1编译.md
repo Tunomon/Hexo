@@ -1,10 +1,8 @@
 ---
-title: oozie_1
+title: oozie_1编译
 date: 2017-04-28 23:22:34
 tags:
 ---
-
-# Oozie-1_编译
 
 # 1. 官网(4.1.0)
 
