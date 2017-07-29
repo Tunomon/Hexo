@@ -1,30 +1,31 @@
 require('shelljs/global');
 try {
-	hexo.on('deployAfter', function() {//µ±deployÍê³ÉºóÖ´ÐÐ±¸·Ý
-		run();
-	});
+    hexo.on('deployAfter', function() { //ï¿½ï¿½deployï¿½ï¿½Éºï¿½Ö´ï¿½Ð±ï¿½ï¿½ï¿½
+        run();
+    });
 } catch (e) {
-	console.log("²úÉúÁËÒ»¸ö´íÎó<(£þ3£þ)> !£¬´íÎóÏêÇéÎª£º" + e.toString());
+    console.log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½<(ï¿½ï¿½3ï¿½ï¿½)> !ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½" + e.toString());
 }
+
 function run() {
-	if (!which('git')) {
-		echo('Sorry, this script requires git');
-		exit(1);
-	} else {
-		echo("======================Auto Backup Begin===========================");
-		cd('H:\Work\Blog');    //´Ë´¦ÐÞ¸ÄÎªHexo¸ùÄ¿Â¼Â·¾¶
-		if (exec('git add --all').code !== 0) {
-			echo('Error: Git add failed');
-			exit(1);
-		}
-		if (exec('git commit -am "Form auto backup script\'s commit"').code !== 0) {
-			echo('Error: Git commit failed');
-			exit(1);
-		}
-		if (exec('git push origin master').code !== 0) {
-			echo('Error: Git push failed');
-			exit(1);
-		}
-		echo("==================Auto Backup Complete============================")
-	}
+    if (!which('git')) {
+        echo('Sorry, this script requires git');
+        exit(1);
+    } else {
+        echo("======================Auto Backup Begin===========================");
+        cd('H:\graduation\Blog\scripts'); //ï¿½Ë´ï¿½ï¿½Þ¸ï¿½ÎªHexoï¿½ï¿½Ä¿Â¼Â·ï¿½ï¿½
+        if (exec('git add --all').code !== 0) {
+            echo('Error: Git add failed');
+            exit(1);
+        }
+        if (exec('git commit -am "Form auto backup script\'s commit"').code !== 0) {
+            echo('Error: Git commit failed');
+            exit(1);
+        }
+        if (exec('git push origin master').code !== 0) {
+            echo('Error: Git push failed');
+            exit(1);
+        }
+        echo("==================Auto Backup Complete============================")
+    }
 }
