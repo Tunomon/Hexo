@@ -1,7 +1,7 @@
 ---
 title: Redux初步学习
 date: 2017-07-30 00:37:17
-tags:Redux
+tags: Redux
 ---
 
 # Redux初步学习
