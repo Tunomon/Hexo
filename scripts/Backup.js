@@ -4,7 +4,7 @@ try {
         run();
     });
 } catch (e) {
-    console.log("������һ������<(��3��)> !����������Ϊ��" + e.toString());
+    console.log("产生了一个错误<(￣3￣)> !，错误详情为" + e.toString());
 }
 
 function run() {
@@ -13,7 +13,7 @@ function run() {
         exit(1);
     } else {
         echo("======================Auto Backup Begin===========================");
-        cd('H:\graduation\Blog'); //�˴��޸�ΪHexo��Ŀ¼·��
+        cd('/Users/fanzichen/Documents/个人/博客/Hexo'); //此处修改为Hexo根目录路径
         if (exec('git add --all').code !== 0) {
             echo('Error: Git add failed');
             exit(1);

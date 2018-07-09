@@ -2,7 +2,6 @@
 title: sqoop研究——基础命令
 date: 2016-12-04 16:33:25
 tags: sqoop
-category: sqoop
 ---
 ## 1、sqoop导入
 

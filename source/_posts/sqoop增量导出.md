@@ -2,7 +2,6 @@
 title: sqoop研究——增量导出
 date: 2016-12-04 17:09:22
 tags: sqoop
-category: sqoop
 ---
 
 ## 1、未分区表

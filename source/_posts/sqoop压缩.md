@@ -2,7 +2,6 @@
 title: sqoop研究——压缩
 date: 2016-12-04 17:12:08
 tags: sqoop
-category: sqoop
 ---
 
 ## 1、压缩：
