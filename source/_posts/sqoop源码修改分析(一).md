@@ -1,5 +1,5 @@
 ---
-title: sqoop源码修改分析（一）
+title: sqoop源码修改分析
 date: 2017-03-20 17:30:24
 tags: sqoop
 ---

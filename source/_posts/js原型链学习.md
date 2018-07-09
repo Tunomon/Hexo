@@ -1,7 +1,7 @@
 ---
 title: js原型链学习
 date: 2018-07-09 11:24:49
-tags: javascript
+tags: JavaScript
 ---
 
 ## js原型链学习
