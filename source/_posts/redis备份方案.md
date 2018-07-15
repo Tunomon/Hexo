@@ -4,8 +4,6 @@ date: 2018-07-09 11:18:44
 tags: Redis
 ---
 
-## redis备份方案
-
 redis有两种备份持久化方案：
 
 1. RDB方式；

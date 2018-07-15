@@ -1,9 +1,8 @@
 ---
-title: 分析js的if语句
+title: ECMAScript规范分析——分析js的if语句
 date: 2018-07-09 13:45:52
 tags: JavaScript
 ---
-## ECMAScript规范分析——分析js的if语句
 
 1. 对于字符串 
 

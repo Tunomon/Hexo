@@ -1,10 +1,8 @@
 ---
-title: http-upgrade事件
+title: 部分Http-upgrade事件学习
 date: 2018-07-09 13:31:30
 tags:
 ---
-
-## 部分Http upgrade事件学习
 
 [谈谈 HTTP/2 的协议协商机制](https://imququ.com/post/protocol-negotiation-in-http2.html)
 [nodejs-learning-guide](https://github.com/chyingp/nodejs-learning-guide/blob/master/%E6%A8%A1%E5%9D%97/http.client.md)
