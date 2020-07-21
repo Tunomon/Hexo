@@ -3,7 +3,6 @@ title: String/StringBuffer/StringBuilder区别
 date: 2020-07-04 22:59:30
 tags: Java基础
 ---
-String/StringBuffer/StringBuilder区别
 
 1. String
        /** The value is used for character storage. */
@@ -28,7 +27,7 @@ String/StringBuffer/StringBuilder区别
        String S4 = “ test”;
        String S1 = S2 +S3 + S4;
    则属于正常情况，即StringBuffer > String
-   线程安全是因为方法内部中方法基本都带了synchronized
+   StringBuffer 和 StringBuilder 都是 AbstractStringBuilder 的子类，区别在于StringBuffer 的方法大部分都有 synchronized 修饰。
            @Override
            public synchronized StringBuffer append(Object obj) {
                toStringCache = null;
